@@ -1,7 +1,9 @@
-import {createTheme} from "@mui/material";
+import {Theme, createTheme} from "@mui/material";
 
-export const theme = createTheme({
+export const theme: Theme = createTheme({
     typography: {
-        fontFamily: 'Roboto, sans-serif'
+        fontFamily: 'Rubik'
     },
 });
+
+

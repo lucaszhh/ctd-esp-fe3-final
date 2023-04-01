@@ -1,8 +1,8 @@
-import type {NextPage} from 'next'
+import * as next from 'next'
 import Head from 'next/head'
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 
-const Index: NextPage = () => {
+const Index: next.NextPage = () => {
     return (
         <>
             <Head>
