@@ -17,7 +17,7 @@ const Faq : next.NextPage = ()=>{
 }
 
 export const getStaticProps: next.GetStaticProps = async () => {
-    const data = faqsData;
+    const data = faqsData
     return {
         props: { data: data }
     }

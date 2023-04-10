@@ -5,29 +5,24 @@ import {
   ERROR_INVALID_CREDENTIALS,
   ERROR_SERVER,
 } from "services/marvel/message.error";
-import { getComics } from "dh-marvel/services/marvel/marvel.service";
-import { IComicResponse } from "types";
+import { getComicsByCharacterId } from "dh-marvel/services/marvel/marvel.service";
 
-type Data = IComicResponse | { error: string; message: string };
-
-type Query = {
-  offset: string;
-  limit: string;
-};
+type Data = any | { error: string; message: string };
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const query = req.query;
+  res.setHeader("Content-Type", "application/json");
 
-  const { offset, limit } = query as Query;
-
-  const offsetInt = parseInt(offset);
-  const limittInt = parseInt(limit);
+  const {
+    query: { id, limit },
+  } = req;
+  const characterId = parseInt(id as string);
+  const limitNumber = parseInt(limit as string);
 
   try {
-    const result: IComicResponse = await getComics(offsetInt, limittInt);
+    const result = await getComicsByCharacterId(characterId, limitNumber);
 
     if (result.code === "InvalidCredentials") {
       res.status(401).json(ERROR_INVALID_CREDENTIALS);

@@ -22,7 +22,6 @@ type Data = {
     message: string;
 }
 
-
 export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
 
     if (req.method !== "POST") {

@@ -1,65 +1,94 @@
-import * as next from 'next'
-import Head from 'next/head'
+import type { NextPage } from "next";
+import Head from "next/head";
+import { Grid, Pagination, Stack, Typography } from "@mui/material";
+import { ChangeEvent, useEffect, useState } from "react";
+import { IComicResponse } from "types";
+import { getComicsByPage } from "services/marvel/marvel.service";
+import { useRouter } from "next/router";
+import { getComics } from "dh-marvel/services/marvel/marvel.service";
+import GridLayout from "dh-marvel/components/gridLayout";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
-import { Box, Grid } from '@mui/material';
-import { IComic, IComicResponse } from 'types';
-import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
-import { getComics } from 'dh-marvel/services/marvel/marvel.service';
-import CardComic from 'dh-marvel/components/comics/cardComic';
-import useComics from 'hooks/useComics';
 
+interface Props {
+    comics: IComicResponse;
+}
 
-const Index = ({data}:IComicResponse) => {
-    
-/*     console.log(data); */
-    
-    const comicList = data?.results.map((comic)=> <CardComic key={comic.id} comic={comic}/> )
-    
-    const totalPage = Math.ceil(data.total / 12)
-    const {page, handleChange, comicResponse} = useComics()
-    
-    console.log(comicResponse)
-    
+const QTY_OF_CARDS = 12;
 
+const Index: NextPage<Props> = ({ comics }) => {
+    const router = useRouter();
+    const [currentPage, setCurrentPage] = useState<number | null>(null);
+    const [comicsData, setComicsData] = useState<IComicResponse>();
+
+    useEffect(() => {
+        localStorage.clear();
+    }, []);
+
+    useEffect(() => {
+        if (currentPage !== null) {
+            router.push(`/?page=${currentPage}`, undefined, { shallow: true });
+
+            getComicsByPage(QTY_OF_CARDS, currentPage).then(
+                (data: IComicResponse) => {
+                    if (data.code === 200) {
+                        setComicsData(data);
+                    }
+                }
+            );
+        }
+    }, [currentPage]);
+
+    const [page, setPage] = useState<number>(1);
+    const handleChange = (event: ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+        setCurrentPage(value);
+    };
+
+    const pagesQty: number =
+        comics?.data?.total !== undefined ? Math.ceil(comics.data.total / 12) : 1;
 
     return (
         <>
             <Head>
-                <title>Marvel-comics</title>
-                <meta name="description" content="Marvel Comics" />
-                <link rel="icon" href="/favicon.ico" />
+                <title>DH MARVEL</title>
+                <meta name="description" content="Sitio DH MARVEL" />
             </Head>
-            <Box sx={{ display: "flex", flexDirection: "column",alignItems:"center" }}>
-                <BodySingle title={"Comics"} />
-                <Stack sx={{padding: 5}} spacing={2}>
-                    <Typography>Page: {page}</Typography>
-                    <Pagination count={totalPage} page={page} onChange={handleChange}/>
-                </Stack>
-                <Grid sx={{ width: "80%" }} container rowSpacing={2} columnSpacing={2}>
-                    {comicList}
-                </Grid> 
-            </Box>
+            <Stack
+                component="section"
+                maxWidth="xl"
+                direction="column"
+                spacing={2}
+                alignItems="center"
+                paddingY={5}
+                paddingX={{ xs: 3, sm: 4, md: 4 }}
+            >
+                <BodySingle title={"Comics"}></BodySingle>
+                <Typography>Page: {page}</Typography>
+                <Pagination
+                    size="large"
+                    count={pagesQty}
+                    onChange={handleChange}
+                />
+                <GridLayout
+                    comics={
+                        comicsData === undefined
+                            ? comics.data?.results
+                            : comicsData.data?.results
+                    }
+                />
+                <Pagination
+                    size="large"
+                    count={pagesQty}
+                    onChange={handleChange}
+                />
+            </Stack>
         </>
-    )
+    );
+};
+
+export async function getServerSideProps() {
+    const comics = await getComics(0, QTY_OF_CARDS);
+    return { props: { comics } };
 }
 
-const DEFAULT_LIMIT = 12
-const DEFAULT_OFFSET = 1
-const MARVEL_URL_HOST = process.env.MARVEL_URL_HOST;
-
-export const getServerSideProps : next.GetServerSideProps = async ()=> {
-    const res = await fetch(`${MARVEL_URL_HOST}/comics/?offset=${DEFAULT_OFFSET}&limit=${DEFAULT_LIMIT}`)
-    const data = await getComics(0, DEFAULT_LIMIT)
-    console.log("res",res)
-    console.log(res);
-    
-    return {
-        props: { data : data.data }
-    }
-}
-
-
-export default Index
+export default Index;

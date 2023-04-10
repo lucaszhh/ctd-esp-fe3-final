@@ -5,13 +5,43 @@ export interface IFaqsType {
 }
 
 export interface IComic {
-    id : number,
-    description: string,
-    images: [{extension: string, path: string}],
-    title: string
+    id: number;
+    digitalId: number;
+    title: string;
+    issueNumber: number;
+    variantDescription: string;
+    description: string | null;
+    modified: string;
+    isbn: string;
+    upc: string;
+    diamondCode: string;
+    ean: string;
+    issn: string;
+    format: string;
+    pageCount: number;
+    textObjects: ITextObjects[] | [];
+    resourceURI: string;
+    urls: ILink[];
+    series: IItem;
+    variants: IItem[];
+    collections: IItem[] | [];
+    collectedIssues: IItem[] | [];
+    dates: IDate[];
+    prices: IPrice[];
+    price: number;
+    oldPrice: number;
+    stock: number;
+    thumbnail: IThumbnail;
+    images: ILink[] | [];
+    creators: ISummary;
+    characters: ISummary;
+    stories: ISummary;
+    events: ISummary;
 }
 
 export interface IComicResponse {
+    results: any;
+    total: number;
     message: string;
     status: string;
     code: number | string;
@@ -23,3 +53,83 @@ export interface IComicResponse {
       results: IComic[];
     };
 }
+export interface ICharacterResponse {
+    code: number | string;
+    status: string;
+    copyright: string;
+    attributionText: string;
+    attributionHTML: string;
+    etag: string;
+    data: {
+      offset: number;
+      limit: number;
+      total: number;
+      count: number;
+      results: ICharacter[];
+    };
+}
+  
+export interface ICharacter {
+    id: number;
+    name: string;
+    description: string | null;
+    modified: Date;
+    thumbnail: IThumbnail;
+    resourceURI: string;
+    comics: ISummary;
+    series: ISummary;
+    stories: ISummary;
+    events: ISummary;
+    urls: ILink[];
+}
+
+export interface ISummary {
+    available: number;
+    collectionURI: string;
+    items: IItem[] | [];
+    returned: number;
+}
+  
+export interface IItem {
+    resourceURI: string;
+    name: string;
+    type?: "cover" | "interiorStory" | "promo" | string;
+    role?:
+      | "editor"
+      | "writer"
+      | "penciller"
+      | "penciller (cover)"
+      | "colorist"
+      | "inker"
+      | "penciller (cover) "
+      | "letterer"
+      | string;
+}
+  
+export interface ILink {
+    type: "detail" | "comiclink" | "purchase" | string;
+    url: string;
+}
+  
+
+export interface IDate {
+    type: "onsaleDate" | "focDate" | string;
+    date: string;
+}
+  
+export interface IPrice {
+    type: "printPrice" | string;
+    price: number;
+}
+  
+export interface IThumbnail {
+    path: string;
+    extension: "jpg" | string;
+}
+  
+export interface ITextObjects {
+    type: "issue_solicit_text" | string;
+    language: "en-us" | string;
+    text: string;
+}
+  

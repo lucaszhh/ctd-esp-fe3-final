@@ -1,4 +1,4 @@
-import {generateAuthenticationString} from "dh-marvel/services/marvel/marvel-auth.service";
+import { generateAuthenticationString } from "dh-marvel/services/marvel/marvel-auth.service";
 
 const MARVEL_API_URL = process.env.MARVEL_API_URL;
 
@@ -34,9 +34,52 @@ export const getComic = async (comicId: number) => {
     } else return null;
 }
 
+export const getCharacters = async (offset?: number, limit?: number) => {
+    const params = new URLSearchParams();
+    if (offset) params.set("offset", `${offset}`);
+    if (limit) params.set("limit", `${limit}`);
+    return fetchApi("characters", params.toString());
+}
+
 export const getCharacter = async (characterId: number) => {
     const data = await fetchApi(`characters/${characterId}`);
     const results = data.data.results;
     if (results.length > 0) return results[0];
     else return null;
 }
+export const getComicsByPage = async (
+    qtyOfCards: number,
+    pageNumber: number
+): Promise<any> => {
+    const offset = qtyOfCards * pageNumber - qtyOfCards;
+    const params = new URLSearchParams();
+
+    if (offset) params.set("offset", `${offset}`);
+    if (qtyOfCards) params.set("limit", `${qtyOfCards}`);
+
+    const paramsToFetch = params.toString();
+    const response = await fetch(`/api/comics?${paramsToFetch || ""}`);
+    return await response.json();
+};
+
+export const getComicsById = async (id: number): Promise<any> => {
+    const response = await fetch(`/api/comics/${id}`);
+
+    return await response.json();
+};
+
+export const getComicsByCharacterId = async (
+    id: number,
+    limit?: number
+): Promise<any> => {
+    const params = new URLSearchParams();
+
+    if (limit) params.set("limit", `${limit}`);
+    const paramsToFetch = params.toString();
+
+    const response = await fetch(
+        `/api/characters/${id}/comics?${paramsToFetch || ""}`
+    );
+
+    return await response.json();
+};
