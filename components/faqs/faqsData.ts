@@ -1,6 +1,6 @@
-import { IFaqsType } from "types";
+import { IFaqs } from "types";
 
-export const faqsData: IFaqsType[] = [
+export const faqsData: IFaqs[] = [
     {
         "id": 1,
         "question": "¿Cuántos comics tienen?",

@@ -1,51 +1,51 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import { Grid, Pagination, Stack, Typography } from "@mui/material";
-import { ChangeEvent, useEffect, useState } from "react";
-import { IComicResponse } from "types";
-import { getComicsByPage } from "services/marvel/marvel.service";
-import { useRouter } from "next/router";
-import { getComics } from "dh-marvel/services/marvel/marvel.service";
-import GridLayout from "dh-marvel/components/gridLayout";
-import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
+import type { GetServerSideProps, NextPage } from "next"
+import Head from "next/head"
+import { Grid, Pagination, Stack, Typography } from "@mui/material"
+import { ChangeEvent, useEffect, useState } from "react"
+import { IComicResponse } from "types"
+import { getComicsByPage } from "services/marvel/marvel.service"
+import { useRouter } from "next/router"
+import { getComics } from "dh-marvel/services/marvel/marvel.service"
+import GridLayout from "dh-marvel/components/gridLayout"
+import BodySingle from "dh-marvel/components/layouts/body/single/body-single"
 
 interface Props {
-    comics: IComicResponse;
+    comics: IComicResponse
 }
 
-const QTY_OF_CARDS = 12;
+const DEFAULT_LIMIT = 12;
 
 const Index: NextPage<Props> = ({ comics }) => {
-    const router = useRouter();
-    const [currentPage, setCurrentPage] = useState<number | null>(null);
-    const [comicsData, setComicsData] = useState<IComicResponse>();
+    const router = useRouter()
+    const [currentPage, setCurrentPage] = useState<number | null>(null)
+    const [comicsData, setComicsData] = useState<IComicResponse>()
 
     useEffect(() => {
-        localStorage.clear();
-    }, []);
+        localStorage.clear()
+    }, [])
 
     useEffect(() => {
         if (currentPage !== null) {
-            router.push(`/?page=${currentPage}`, undefined, { shallow: true });
+            router.push(`/?page=${currentPage}`, undefined, { shallow: true })
 
-            getComicsByPage(QTY_OF_CARDS, currentPage).then(
+            getComicsByPage(DEFAULT_LIMIT, currentPage).then(
                 (data: IComicResponse) => {
                     if (data.code === 200) {
-                        setComicsData(data);
+                        setComicsData(data)
                     }
                 }
-            );
+            )
         }
-    }, [currentPage]);
+    }, [currentPage])
 
     const [page, setPage] = useState<number>(1);
     const handleChange = (event: ChangeEvent<unknown>, value: number) => {
-        setPage(value);
-        setCurrentPage(value);
-    };
+        setPage(value)
+        setCurrentPage(value)
+    }
 
     const pagesQty: number =
-        comics?.data?.total !== undefined ? Math.ceil(comics.data.total / 12) : 1;
+        comics?.data?.total !== undefined ? Math.ceil(comics.data.total / 12) : 1
 
     return (
         <>
@@ -86,8 +86,8 @@ const Index: NextPage<Props> = ({ comics }) => {
     );
 };
 
-export async function getServerSideProps() {
-    const comics = await getComics(0, QTY_OF_CARDS);
+export const getServerSideProps: GetServerSideProps= async ()=>{
+    const comics = await getComics(0, DEFAULT_LIMIT);
     return { props: { comics } };
 }
 

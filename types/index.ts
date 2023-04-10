@@ -1,4 +1,4 @@
-export interface IFaqsType {
+export interface IFaqs {
     id: number,
     question: string,
     answer: string,

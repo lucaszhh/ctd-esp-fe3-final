@@ -3,7 +3,7 @@ import Faq from "./index.page";
 
 describe('IndexPage', () => {
     describe('when rendering faqs', () => {
-        render(<Faq/>)
+        render(<Faq data={[]}/>)
         it('should render question', async() => {
             const question = screen.getByText('¿Cuántos comics tienen?')
             expect(question).toBeInTheDocument()
@@ -12,7 +12,7 @@ describe('IndexPage', () => {
             expect(aswer).toBeInTheDocument()
         }),
         it('should render question', async () => {
-            render(<Faq/>)
+            render(<Faq data={[]}/>)
             const question = screen.getByText('¿Se puede reservar nuevos lanzamientos?')
             expect(question).toBeInTheDocument()
             fireEvent.click(question)
@@ -20,7 +20,7 @@ describe('IndexPage', () => {
             expect(aswer).toBeInTheDocument()
         }),
         it('should render question', async () => {
-            render(<Faq/>)
+            render(<Faq data={[]}/>)
             const question = screen.getByText('¿Cuanto demoran las entregas?')
             expect(question).toBeInTheDocument()
             fireEvent.click(question)
@@ -28,7 +28,7 @@ describe('IndexPage', () => {
             expect(aswer).toBeInTheDocument()
         }),
         it('should render question', async () => {
-            render(<Faq/>)
+            render(<Faq data={[]}/>)
             const question = screen.getByText('¿Qué métodos de pago están disponibles?')
             expect(question).toBeInTheDocument()
             fireEvent.click(question)
@@ -36,7 +36,7 @@ describe('IndexPage', () => {
             expect(aswer).toBeInTheDocument()
         }),
         it('should render question', async () => {
-            render(<Faq/>)
+            render(<Faq data={[]}/>)
             const question = screen.getByText('¿Se aceptan devoluciones?')
             expect(question).toBeInTheDocument()
             fireEvent.click(question)

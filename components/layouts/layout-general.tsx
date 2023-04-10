@@ -19,4 +19,4 @@ const LayoutGeneral: FC<PropsWithChildren> = ({children}: PropsWithChildren) => 
         </>
     );
 };
-export default LayoutGeneral;
+export default LayoutGeneral

@@ -1,8 +1,8 @@
 import { Accordion, AccordionSummary, Typography, AccordionDetails } from "@mui/material"
-import { IFaqsType } from "types"
+import { IFaqs } from "types"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 type props = {
-    faq : IFaqsType
+    faq : IFaqs
 }
 
 const FaqAccordion = ({faq}:props) => {
