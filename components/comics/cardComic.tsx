@@ -48,20 +48,20 @@ const CardComponent: FC<Props> = ({ comic }) => {
           alt={comic?.title}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h4" component="div" >
             {comic?.title}
           </Typography>
         </CardContent>
       </Box>
-      <CardActions>
-        <Button onClick={() => handleBuy(comic.id)} >
+      <CardActions sx={{display: "flex", justifyContent: "space-between"}}>
+        <Button onClick={() => handleBuy(comic.id)} variant="contained" sx={{
+            border: `2px solid #000`,
+            borderRadius: 0,
+          }}>
           COMPRAR
         </Button>
         <NextLink href={`/comics/${comic.id}`}>
-          <Button variant="contained" sx={{
-            border: `2px solid #000`,
-            borderRadius: 0,
-          }}>Ver detalles</Button>
+          <Button >Ver detalles</Button>
         </NextLink>
       </CardActions>
     </Card>

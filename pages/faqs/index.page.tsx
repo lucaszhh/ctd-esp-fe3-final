@@ -32,7 +32,7 @@ const Faq: next.NextPage<Props> = ({ data }: Props) => {
 
 const URL_WEB = process.env.URL_WEB
 
-export const getServerSideProps: next.GetServerSideProps= async ()=>{
+export const getServerSideProps: next.GetServerSideProps = async ()=>{
     const response = await fetch(URL_WEB + "api/faqs")
     const data: IFaqs[] = await response.json()
     return {

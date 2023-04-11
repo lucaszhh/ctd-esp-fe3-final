@@ -1,6 +1,6 @@
 import type { GetServerSideProps, NextPage } from "next"
 import Head from "next/head"
-import { Grid, Pagination, Stack, Typography } from "@mui/material"
+import {  Pagination, Stack, Typography } from "@mui/material"
 import { ChangeEvent, useEffect, useState } from "react"
 import { IComicResponse } from "types"
 import { getComicsByPage } from "services/marvel/marvel.service"
@@ -86,7 +86,7 @@ const Index: NextPage<Props> = ({ comics }) => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps= async ()=>{
+export const getServerSideProps: GetServerSideProps = async ()=>{
     const comics = await getComics(0, DEFAULT_LIMIT);
     return { props: { comics } };
 }

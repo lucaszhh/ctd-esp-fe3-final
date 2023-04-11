@@ -65,7 +65,7 @@ const Comic: NextPage<Props> = ({ comic }) => {
             >
               {comic?.stock > 0 ? (
                 <NextLink
-                  href={{ pathname: "/checkout/", query: `comic=${comic?.id}` }}
+                  href={{ pathname: "/checkout/", query: `id=${comic?.id}` }}
                 >
                   <Button
                     variant="contained"
@@ -80,7 +80,6 @@ const Comic: NextPage<Props> = ({ comic }) => {
               ) : (
                 <Button
                   disabled
-                  endIcon={<AddShoppingCartOutlinedIcon />}
                 >
                   SIN STOCK
                 </Button>

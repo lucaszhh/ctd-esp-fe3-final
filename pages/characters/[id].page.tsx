@@ -26,10 +26,10 @@ const Character: NextPage<Props> = ({ character }: Props) => {
           component="section"
           maxWidth="xl"
           direction="column"
-          spacing={10}
+          spacing={5}
           alignItems="center"
-          paddingY={15}
-          paddingX={{ xs: 3, sm: 4, md: 4 }}
+          paddingY={5}
+          
         >
           <Typography
             gutterBottom
@@ -38,6 +38,7 @@ const Character: NextPage<Props> = ({ character }: Props) => {
               textTransform: "uppercase",
               fontWeight: "700",
               textShadow: "primary",
+              fontSize:40
             }}
           >
             {character?.name}
@@ -50,7 +51,6 @@ const Character: NextPage<Props> = ({ character }: Props) => {
               maxWidth: 700,
               width: "100%",
               border: "3px solid #000",
-              boxShadow: "12px 12px #000",
             }}
           />
           {character?.description ? (
@@ -94,7 +94,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: true,
   };
 };
-
 
 
 export default Character;

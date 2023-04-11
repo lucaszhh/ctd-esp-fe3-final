@@ -16,10 +16,15 @@ const CardComicDetails: NextPage<Props> = ({ comic }) => {
         paddingBottom: "30px",
       }}
     >
-      <Typography gutterBottom component="div">
+      <Typography gutterBottom component="div" variant="h5"
+      sx={{
+              textTransform: "uppercase",
+              fontWeight: "700",
+              textShadow: "primary",
+            }}>
         Serie: {comic?.series.name}
       </Typography>
-      <Typography gutterBottom >
+      <Typography gutterBottom variant="h5">
         {comic?.title}
       </Typography>
       {comic?.isbn !== "" && (
@@ -38,6 +43,7 @@ const CardComicDetails: NextPage<Props> = ({ comic }) => {
               textDecoration: "line-through",
               marginBottom: "5px",
               paddingRight: "15px",
+              
             }}
           >
             ${comic.oldPrice}
@@ -45,12 +51,12 @@ const CardComicDetails: NextPage<Props> = ({ comic }) => {
         )}
 
         {offert > 0 && (
-          <Typography >
+          <Typography sx={{color: "green", fontSize: "1.1rem"}}>
             {offert}% OFF!
           </Typography>
         )}
       </Box>
-      <Typography >${comic?.price}</Typography>
+      <Typography sx={{fontWeight: "700", fontSize: "1.5rem"}}>${comic?.price}</Typography>
     </Box>
   );
 };
