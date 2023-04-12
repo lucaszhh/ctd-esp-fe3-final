@@ -8,28 +8,12 @@ import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import { IComic } from "types";
 import NextLink from "next/link";
-import { useRouter } from "next/router";
-import { getComicsById } from "services/marvel/marvel.service";
 
 interface Props {
   comic: IComic;
 }
 
 const CardComponent: FC<Props> = ({ comic }) => {
-  const router = useRouter();
-
-  const handleBuy = async (id: number) => {
-    const response: IComic = await getComicsById(id);
-
-    if (response.stock > 0) {
-      router.push({
-        pathname: "/checkout",
-        query: { comic: comic.id },
-      });
-    } else {
-      router.push(`/comics/${id}`);
-    }
-  };
 
   return (
     <Card sx={{
@@ -54,12 +38,14 @@ const CardComponent: FC<Props> = ({ comic }) => {
         </CardContent>
       </Box>
       <CardActions sx={{display: "flex", justifyContent: "space-between"}}>
-        <Button onClick={() => handleBuy(comic.id)} variant="contained" sx={{
+      <NextLink href={`/checkout/?id=${comic.id}`}>
+        <Button variant="contained" sx={{
             border: `2px solid #000`,
             borderRadius: 0,
           }}>
           COMPRAR
         </Button>
+      </NextLink>
         <NextLink href={`/comics/${comic.id}`}>
           <Button >Ver detalles</Button>
         </NextLink>

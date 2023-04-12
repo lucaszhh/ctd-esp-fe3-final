@@ -46,11 +46,11 @@ export interface IComicResponse {
     status: string;
     code: number | string;
     data: {
-      offset: number;
-      limit: number;
-      total: number;
-      count: number;
-      results: IComic[];
+        offset: number;
+        limit: number;
+        total: number;
+        count: number;
+        results: IComic[];
     };
 }
 export interface ICharacterResponse {
@@ -61,14 +61,14 @@ export interface ICharacterResponse {
     attributionHTML: string;
     etag: string;
     data: {
-      offset: number;
-      limit: number;
-      total: number;
-      count: number;
-      results: ICharacter[];
+        offset: number;
+        limit: number;
+        total: number;
+        count: number;
+        results: ICharacter[];
     };
 }
-  
+
 export interface ICharacter {
     id: number;
     name: string;
@@ -89,47 +89,80 @@ export interface ISummary {
     items: IItem[] | [];
     returned: number;
 }
-  
+
 export interface IItem {
     resourceURI: string;
     name: string;
     type?: "cover" | "interiorStory" | "promo" | string;
     role?:
-      | "editor"
-      | "writer"
-      | "penciller"
-      | "penciller (cover)"
-      | "colorist"
-      | "inker"
-      | "penciller (cover) "
-      | "letterer"
-      | string;
+    | "editor"
+    | "writer"
+    | "penciller"
+    | "penciller (cover)"
+    | "colorist"
+    | "inker"
+    | "penciller (cover) "
+    | "letterer"
+    | string;
 }
-  
+
 export interface ILink {
     type: "detail" | "comiclink" | "purchase" | string;
     url: string;
 }
-  
+
 
 export interface IDate {
     type: "onsaleDate" | "focDate" | string;
     date: string;
 }
-  
+
 export interface IPrice {
     type: "printPrice" | string;
     price: number;
 }
-  
+
 export interface IThumbnail {
     path: string;
     extension: "jpg" | string;
 }
-  
+
 export interface ITextObjects {
     type: "issue_solicit_text" | string;
     language: "en-us" | string;
     text: string;
 }
-  
+
+export type ICheckout = {
+    customer: ICustomer;
+    card: ICard;
+    order: IOrder;
+};
+
+export interface ICard {
+    number: string;
+    cvc: string;
+    expDate: string;
+    nameOnCard: string;
+}
+
+export interface IOrder {
+    name: string;
+    image: string;
+    price: number;
+}
+
+export interface IAddress {
+    address1: string;
+    address2: string | null;
+    city: string;
+    state: string;
+    zipCode: string;
+}
+
+export interface ICustomer {
+    name: string;
+    lastname: string;
+    email: string;
+    address: IAddress;
+}
