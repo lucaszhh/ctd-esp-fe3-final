@@ -23,7 +23,7 @@ const GridLayout: NextPage<Props> = ({
   const renderResults = () =>
     comics?.map((comic) => {
       return (
-        <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl} key={comic.id}>
+        <Grid data-testid="card-component" item xs={xs} sm={sm} md={md} lg={lg} xl={xl} key={comic.id}>
           <CardComponent comic={comic} />
         </Grid>
       );
@@ -35,6 +35,7 @@ const GridLayout: NextPage<Props> = ({
       alignItems="stretch"
       rowSpacing={{ xs: 3, sm: 2, md: 4 }}
       columnSpacing={{ sm: 2, md: 4 }}
+      data-testid="grid-layout"
     >
       {renderResults()}
     </Grid>

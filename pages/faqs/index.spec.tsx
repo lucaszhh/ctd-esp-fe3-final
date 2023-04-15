@@ -1,9 +1,10 @@
-import {fireEvent, getByTestId, getByText, render, screen, waitFor} from "@testing-library/react";
+import {fireEvent, render, screen} from "@testing-library/react";
 import Faq from "./index.page";
+import { faqsData } from "dh-marvel/components/faqs/faqsData";
 
 describe('IndexPage', () => {
     describe('when rendering faqs', () => {
-        render(<Faq data={[]}/>)
+        render(<Faq data={faqsData}/>)
         it('should render question', async() => {
             const question = screen.getByText('¿Cuántos comics tienen?')
             expect(question).toBeInTheDocument()
@@ -12,7 +13,7 @@ describe('IndexPage', () => {
             expect(aswer).toBeInTheDocument()
         }),
         it('should render question', async () => {
-            render(<Faq data={[]}/>)
+            render(<Faq data={faqsData}/>)
             const question = screen.getByText('¿Se puede reservar nuevos lanzamientos?')
             expect(question).toBeInTheDocument()
             fireEvent.click(question)
@@ -20,7 +21,7 @@ describe('IndexPage', () => {
             expect(aswer).toBeInTheDocument()
         }),
         it('should render question', async () => {
-            render(<Faq data={[]}/>)
+            render(<Faq data={faqsData}/>)
             const question = screen.getByText('¿Cuanto demoran las entregas?')
             expect(question).toBeInTheDocument()
             fireEvent.click(question)
@@ -28,7 +29,7 @@ describe('IndexPage', () => {
             expect(aswer).toBeInTheDocument()
         }),
         it('should render question', async () => {
-            render(<Faq data={[]}/>)
+            render(<Faq data={faqsData}/>)
             const question = screen.getByText('¿Qué métodos de pago están disponibles?')
             expect(question).toBeInTheDocument()
             fireEvent.click(question)
@@ -36,7 +37,7 @@ describe('IndexPage', () => {
             expect(aswer).toBeInTheDocument()
         }),
         it('should render question', async () => {
-            render(<Faq data={[]}/>)
+            render(<Faq data={faqsData}/>)
             const question = screen.getByText('¿Se aceptan devoluciones?')
             expect(question).toBeInTheDocument()
             fireEvent.click(question)

@@ -4,7 +4,7 @@ process.env.TZ = 'UTC';
 
 const createJestConfig = nextJest({
     // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
-    dir: './',
+    dir: './'
 })
 
 // Add any custom config to be passed to Jest
@@ -13,10 +13,16 @@ const customJestConfig = {
     moduleNameMapper: {
         // Handle module aliases (this will be automatically configured for you soon)
         '^dh-marvel/components/(.*)$': '<rootDir>/components/$1',
-        '^dh-marvel/features/(.*)$': '<rootDir>/features/$1',
+        '^components/(.*)$': '<rootDir>/components/$1',
+        '^features/(.*)$': '<rootDir>/features/$1',
         '^dh-marvel/services/(.*)$': '<rootDir>/services/$1',
+        '^services/(.*)$': '<rootDir>/services/$1',
         '^dh-marvel/pages/(.*)$': '<rootDir>/pages/$1',
+        '^pages/(.*)$': '<rootDir>/pages/$1',
+        '^utils/(.*)$': '<rootDir>/utils/$1',
         '^dh-marvel/test/(.*)$': '<rootDir>/test/$1',
+        '^test/(.*)$': '<rootDir>/test/$1',
+        '^hooks/(.*)$': '<rootDir>/hooks/$1',
     },
     testEnvironment: 'jest-environment-jsdom',
     collectCoverageFrom: [
@@ -40,12 +46,12 @@ const customJestConfig = {
             lines: 50,
             statements: 50
         },
-        "./services/checkout": {
+        "./pages/checkout/index.page": {
             branches: 90,
             functions: 90,
             lines: 90,
             statements: 90
-        },
+        }
     },
 }
 

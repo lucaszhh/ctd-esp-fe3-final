@@ -42,8 +42,12 @@ export interface IComic {
 export interface IComicResponse {
     results: any;
     total: number;
-    message: string;
+    message: string ;
+    copyright: string;
+    attributionText: string;
+    attributionHTML: string;
     status: string;
+    etag: string;
     code: number | string;
     data: {
         offset: number;
@@ -73,7 +77,7 @@ export interface ICharacter {
     id: number;
     name: string;
     description: string | null;
-    modified: Date;
+    modified: Date | string;
     thumbnail: IThumbnail;
     resourceURI: string;
     comics: ISummary;

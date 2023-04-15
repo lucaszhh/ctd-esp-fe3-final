@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { checkoutMocked } from "dh-marvel/test/mocks/checkout";
-import { ICheckout } from "types/ICheckout.type";
+import { ICheckout } from "types";
 import CardSuccessCheckout from "./card-succes-checkout.component";
 
 describe("CardSuccessCheckout component", () => {

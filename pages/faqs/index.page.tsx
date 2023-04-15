@@ -10,7 +10,7 @@ type Props = {
 }
 
 const Faq: next.NextPage<Props> = ({ data }: Props) => {
-    const faqsList = data.map((faq) => <FaqAccordion faq={faq} />)
+    const faqsList = data.map((faq) => <FaqAccordion key={faq.id} faq={faq} />)
     return (
         <>
             <Head>
@@ -39,7 +39,5 @@ export const getServerSideProps: next.GetServerSideProps = async ()=>{
         props: { data: data }
     }
 }
-
-
 
 export default Faq

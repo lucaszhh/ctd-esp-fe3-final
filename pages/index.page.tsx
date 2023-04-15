@@ -1,52 +1,21 @@
 import type { GetServerSideProps, NextPage } from "next"
 import Head from "next/head"
 import {  Pagination, Stack, Typography } from "@mui/material"
-import { ChangeEvent, useEffect, useState } from "react"
 import { IComicResponse } from "types"
-import { getComicsByPage } from "services/marvel/marvel.service"
-import { useRouter } from "next/router"
 import { getComics } from "dh-marvel/services/marvel/marvel.service"
 import GridLayout from "dh-marvel/components/gridLayout"
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single"
+import usePagination from "hooks/usePagination"
 
 interface Props {
     comics: IComicResponse
 }
 
-const DEFAULT_LIMIT = 12;
+const DEFAULT_LIMIT = 12
 
 const Index: NextPage<Props> = ({ comics }) => {
-    const router = useRouter()
-    const [currentPage, setCurrentPage] = useState<number | null>(null)
-    const [comicsData, setComicsData] = useState<IComicResponse>()
-
-    useEffect(() => {
-        localStorage.clear()
-    }, [])
-
-    useEffect(() => {
-        if (currentPage !== null) {
-            router.push(`/?page=${currentPage}`, undefined, { shallow: true })
-
-            getComicsByPage(DEFAULT_LIMIT, currentPage).then(
-                (data: IComicResponse) => {
-                    if (data.code === 200) {
-                        setComicsData(data)
-                    }
-                }
-            )
-        }
-    }, [currentPage])
-
-    const [page, setPage] = useState<number>(1);
-    const handleChange = (event: ChangeEvent<unknown>, value: number) => {
-        setPage(value)
-        setCurrentPage(value)
-    }
-
-    const pagesQty: number =
-        comics?.data?.total !== undefined ? Math.ceil(comics.data.total / 12) : 1
-
+    const {page, handleChange, comicsData} = usePagination(DEFAULT_LIMIT)
+    const pagesQty: number = comics?.data?.total !== undefined ? Math.ceil(comics.data.total / 12) : 1
     return (
         <>
             <Head>

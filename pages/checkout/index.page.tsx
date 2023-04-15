@@ -1,19 +1,18 @@
 import { getComic } from "services/marvel/marvel.service"
-import type { GetServerSideProps, GetServerSidePropsContext, GetStaticProps, GetStaticPropsContext, NextPage } from "next"
+import type { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next"
 import Head from "next/head"
 import { IComic } from "types"
 import { Box, Stack } from "@mui/material"
 import LayoutCheckout from "dh-marvel/components/layouts/layout-checkout"
 import StepperForm from "dh-marvel/components/forms/stepper-form.component"
 import CardCheckoutProduct from "dh-marvel/components/card-checkout-product/card-checkout-product"
+import BodySingle from "dh-marvel/components/layouts/body/single/body-single"
 
 type Props = {
     comic: IComic
 }
 
 const Checkout: NextPage<Props> = ({ comic }: Props) => {
-
-
     return (
         <>
             <Head>
@@ -28,6 +27,7 @@ const Checkout: NextPage<Props> = ({ comic }: Props) => {
                     padding: { xs: "80px 20px", sm: "100px 20px" },
                 }}
             >
+                <BodySingle title={"Checkout"}></BodySingle>
                 <Stack
                     direction={{ sm: "column", md: "row-reverse" }}
                     spacing={{ xs: 15, sm: 15, md: 8, xl: 20 }}

@@ -11,7 +11,7 @@ interface Props {
   character: ICharacter;
 }
 
-const Character: NextPage<Props> = ({ character }: Props) => {
+export const Character: NextPage<Props> = ({ character }: Props) => {
   return (
     <>
       <Head>

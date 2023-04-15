@@ -4,7 +4,6 @@ import { Box } from "@mui/system";
 import { Button, Grid, Stack } from "@mui/material";
 import { IComic, IComicResponse } from "types"
 import NextLink from "next/link";
-import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import AccordionComic from "dh-marvel/components/comics/accordionComic";
 import CardComicDetails from "dh-marvel/components/comics/cardComicDetails";
 import { getComic, getComics } from "dh-marvel/services/marvel/marvel.service";

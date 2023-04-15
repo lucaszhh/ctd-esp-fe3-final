@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { renderWithReactHookForm } from "dh-marvel/test/form-helper";
+import { renderWithReactHookForm } from "test/form-helper";
 import ControlledTextInput from "./ControlledTextInput.component";
 import userEvent from "@testing-library/user-event";
 
